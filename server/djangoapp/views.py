@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
 # from .models import related models
-from .restapis import get_dealers_from_cf, get_dealer_reviews_from_cf
+from .restapis import get_dealers_from_cf, get_dealer_reviews_from_cf, post_request
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from datetime import datetime
@@ -112,6 +112,36 @@ def get_dealer_details(request, dealer_id):
         return HttpResponse(results)
 
 # Create a `add_review` view to submit a review
-# def add_review(request, dealer_id):
-# ...
+def add_review(request, dealer_id):
+    if request.user.is_authenticated:
+        review = dict()
+        json_payload = dict()
+        review["time"] = datetime.utcnow().isoformat()
+        review["dealership"] = request.POST["dealer_id"]
+        review["review"] = request.POST["content"]
+        review["purchase_date"] = request.POST["purchasedate"]
+        review["purchase"] = False
+        review["name"] = request.user.get_username()
+
+        post_data = request.POST
+        for key in post_data:
+            if (key == "purchasecheck"):
+                review["purchase"] = True
+        car = request.POST["car"].split("-")
+        car_make = car[0]
+        car_modal = car[1]
+        car_year = car[2]
+        review["car_make"] = car_make
+        review["car_model"] = car_modal
+        review["car_year"] = car_year
+        json_payload["review"] = review
+        url = "https://us-south.functions.appdomain.cloud/api/v1/web/a2c9bdd2-c454-4b7d-bb66-97af8efc34cf/default/post-review"
+        try:
+            post_request(url, json_payload, dealer_id = dealer_id)
+        except:
+            print("\nAN ERROR OCCURED WHILE TRYING TO POST REQUEST\n")
+        print("****REVIEWS*****", review)
+        return redirect("djangoapp:dealer_details", dealer_id=dealer_id)
+
+
 
