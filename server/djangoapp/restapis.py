@@ -75,8 +75,8 @@ def get_dealer_reviews_from_cf(url, dealer_id):
 
 # Create an `analyze_review_sentiments` method to call Watson NLU and analyze text
 def analyze_review_sentiments(text,**kwargs):
-    api_key = "u6a0Ra7txMaOB6bozsNVxtWoz1r4rln-WKqtI4rLsXOQ"
-    url = "https://api.us-east.natural-language-understanding.watson.cloud.ibm.com/instances/9c03f9c0-0ae1-4f08-a04c-98a2e165121e"
+    api_key = "xx"
+    url = "xx"
     
     authenticator = IAMAuthenticator(api_key)
     natural_language_understanding = NaturalLanguageUnderstandingV1(version='2022-04-07',authenticator=authenticator)
@@ -92,39 +92,6 @@ def analyze_review_sentiments(text,**kwargs):
         print(val["sentiment"]["label"])
         return (val["sentiment"]["label"])
 
-
-
-"""
-def analyze_review_sentiments(text):
-    api_key = "SUWdXfgU_mYmw6PnnjBOPowbbusMkReRx2c4O0H70PoC"
-    url = "https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/e886639e-c0e9-499e-a9c1-4de6616359cb"
-    # params = dict()
-    # params["text"] = kwargs["text"]
-    # params["version"] = kwargs["version"]
-    # params["features"] = kwargs["features"]
-    # params["return_analyzed_text"] = kwargs["return_analyzed_text"]
-    # response = get_request(url=url, api_key=api_key, kwargs=params)
-
-    authenticator = IAMAuthenticator(api_key)
-    natural_language_understanding = NaturalLanguageUnderstandingV1(
-        version='2022-04-07',
-        authenticator=authenticator)
-
-    natural_language_understanding.set_service_url(url)
-
-    response = natural_language_understanding.analyze(
-        text=text,
-        features=Features(
-            entities=EntitiesOptions(sentiment=True))).get_result()
-
-    print("RESPONSE:  "+json.dumps(response))
-    # print(response["entities"])
-
-    for key, val in enumerate(response["entities"]):
-        # print(key, ",", val)
-        print(val["sentiment"]["label"])
-        return (val["sentiment"]["label"])
-"""
 # - Call get_request() with specified arguments
 # - Get the returned sentiment label such as Positive or Negative
 
