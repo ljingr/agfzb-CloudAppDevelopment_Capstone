@@ -32,7 +32,6 @@ def contact(request):
 
 # Create a `login_request` view to handle sign in request
 def login_request(request):
-    context = {}
     # handle POST request
     if request.method == "POST":
         username = request.POST['username']
@@ -40,16 +39,16 @@ def login_request(request):
         user = authenticate(usernmae = username, password = password)
         if user is not None:
             login(request,user)
-            return redirect('djangoapp:about')
+            return redirect('djangoapp:index')
         else:
-            return render(request, 'djangoapp/user_login.html',context)
-    else:
-        return render(request, 'djangoapp/user_login.html',context)
+            return redirect('djangoapp:index')
+#    else:
+#        return render(request, 'djangoapp/user_login.html')
 
 # Create a `logout_request` view to handle sign out request
 def logout_request(request):
     logout(request)
-    return redirect('djangoapp:about')
+    return redirect('djangoapp:index')
 
 # Create a `registration_request` view to handle sign up request
 def registration_request(request):
@@ -72,7 +71,7 @@ def registration_request(request):
             user = User.objects.create_user(username=username, first_name=first_name, last_name=last_name,
                                             password=password)
             login(request, user)
-            return redirect("djangoapp:about")
+            return redirect("djangoapp:index")
         else:
             context['message'] = "User already exists."
             return render(request, 'djangoapp/registration.html', context)
@@ -85,13 +84,14 @@ def get_dealerships(request):
     if request.method == "GET":
         url = "https://us-south.functions.appdomain.cloud/api/v1/web/a2c9bdd2-c454-4b7d-bb66-97af8efc34cf/default/get-dealership"
         dealerships = get_dealers_from_cf(url)
-        dealer_names = ' '.join([dealer.short_name for dealer in dealerships])
+        #dealer_names = ' '.join([dealer.short_name for dealer in dealerships])
         
         #states = [dealer.st for dealer in dealerships]
         #unique_states = list(set(states))
         context = {}
         context["dealerships"] = dealerships
         #return HttpResponse(dealer_names)
+        #return render(request, './base.html', context)
         return render(request, 'djangoapp/index.html', context)
 
 

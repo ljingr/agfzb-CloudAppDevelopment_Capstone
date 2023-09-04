@@ -60,25 +60,29 @@
         <thead>
             <tr>
                 <th data-field="id">ID</th>
-                <th data-field="text">Dealer Name</th>
-                <th data-field="text">City</th>
-                <th data-field="text">Address</th>
-                <th data-field="text">Zip</th>
+                <th>Dealer Name</th>
+                <th>City</th>
+                <th>Address</th>
+                <th>Zip</th>
                 <th data-field="state" data-filter-control="select">State</th>
             </tr>
         </thead>
         <tbody>
-            {% for dealer in dealerships %}
-                <tr>
-                    <td>{{dealer.id}}</td>
-                    <td><a href="{% url 'djangoapp:dealer_details' dealer.id %}">{{dealer.full_name}}</a></td>
-                    <td>{{dealer.city}}</td>
-                    <td>{{dealer.address}}</td>
-                    <td>{{dealer.zip}}</td>
-                    <td>{{dealer.st}}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
+            {% for dealer in dealerships%}
+            <tr>
+              <td>{{dealer.id}}</td>
+              <td>
+                <a href="{% url 'djangoapp:dealer_details' dealer.id%}"
+                  >{{dealer.full_name}}</a
+                >
+              </td>
+              <td>{{dealer.city}}</td>
+              <td>{{dealer.address}}</td>
+              <td>{{dealer.zip}}</td>
+              <td>{{dealer.st}}</td>
+            </tr>
+            {%endfor%}
+          </tbody>
     </table>
 
     </body>

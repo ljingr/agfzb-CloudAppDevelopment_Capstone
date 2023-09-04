@@ -30,7 +30,7 @@
             </div>
             <ul class = "nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
-                <a href="{% url 'djangoapp:add_review' dealer.id %}" class="btn btn-primary">Add Review</a>
+                <a href="{% url 'djangoapp:add_review' dealer_id %}" class="btn btn-primary">Add Review</a>
                 <li>
                     <a class="btn btn-link" href="#">{{user.first_name}}({{user.username}}) </a>
                     <a class="btn btn-link" href="{% url 'djangoapp:logout' %}">Logout</a>
@@ -57,9 +57,9 @@
     <div class="card-columns">
         {% for review in dealer_details %}
             <div class="card">
-                {% if review.sentiment == "positive" &}
+                {% if review.sentiment == "positive" %}
                     <img class="card-img-left" src="{{MEDIA_URL}}/emoji/positive.png">
-                {% elif review.sentiment == "negative" %}
+                {% elif review.sentiment == "negative"%}
                     <img class="card-img-left" src="{{MEDIA_URL}}/emoji/negative.png">  
                 {% else %}
                     <img class="card-img-left" src="{{MEDIA_URL}}/emoji/neutral.png">
