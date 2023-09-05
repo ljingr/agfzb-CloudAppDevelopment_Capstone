@@ -45,7 +45,7 @@
         <h3><b>Add a Review About the Dealership info in the below</b></h3>
         <h4>{{dealer_name}}</h4>
         <form action="{% url 'djangoapp:add_review' dealer_id% }" method="POST">
-            { % csrf_token %}
+            
             <label class="h6" for="content">Enter your review here</label>
             <textarea class="form-control" id="content" name="content" rows="2" required></textarea>
             <div class="my-4">

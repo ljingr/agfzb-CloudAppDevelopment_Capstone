@@ -28,17 +28,13 @@ class CarMake(models.Model):
 class CarModel(models.Model):
     name = models.CharField(null=False,max_length=30)
     car_make = models.ForeignKey(CarMake, null=True, on_delete=models.CASCADE)
-    dealer_id = models.CharField(null=False,max_length=60)
+    dealer_id = models.IntegerField(null=False,max_length=60)
     TYPE_CHOICES = (("SED","Sedan"), ("SUV","SUV"), ("WAG","WAGON"),("etc","etc."))
     car_type = models.CharField(max_length=9,choices=TYPE_CHOICES)
-    year = models.DateField()
+    year = models.DateField(null=False)
 
     def __str__(self):
-        return "Name:" + self.name + "," + \
-            "Car Make:" + self.car_make + "," + \
-                "Dealer id:" + self.dealer_id + "," + \
-                    "Type:"+ self.car_type + "," + \
-                        "year:" + + self.year
+        return "Name:" + self.name
 
 
 
